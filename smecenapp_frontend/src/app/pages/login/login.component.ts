@@ -37,6 +37,7 @@ export class LoginComponent {
     password: this.password
   };
 
+
   this.authService.login(credentials).subscribe({
     next: () => {
       this.router.navigate(['/dashboard']); // redirige si el login es exitoso
@@ -47,4 +48,8 @@ export class LoginComponent {
     }
   });
 }
+goToRegister(): void {
+  this.router.navigate(['/register']);
+}
+
 }
