@@ -1,0 +1,50 @@
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #eaf6ff; // fondo claro
+
+  .header {
+    background-color: #375a7f;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 2rem;
+     display: flex;
+     justify-content: space-between;
+  }
+
+  .content {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer {
+    background-color: #375a7f;
+    color: white;
+    text-align: center;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+  main {
+    flex: 1; // ✅ Esto hace que el contenido ocupe el espacio restante
+    padding: 2rem;
+  }
+  .logout-icon {
+  color: white;
+  font-size: 24px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  mat-icon {
+    font-size: 28px;
+  }
+}
+
+}
