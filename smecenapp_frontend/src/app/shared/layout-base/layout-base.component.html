@@ -1,6 +1,14 @@
 <div class="layout-container">
   <header class="header">
     <h1>SMECEN</h1>
+      <button
+    *ngIf="authService.isLoggedIn()"
+    mat-icon-button
+    class="logout-button"
+    (click)="logout()"
+    aria-label="Logout">
+    <mat-icon>logout</mat-icon>
+  </button>
   </header>
 
  <main>

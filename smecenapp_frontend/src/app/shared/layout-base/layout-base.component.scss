@@ -10,6 +10,8 @@
     padding: 1rem;
     text-align: center;
     font-size: 2rem;
+     display: flex;
+     justify-content: space-between;
   }
 
   .content {
@@ -30,5 +32,19 @@
     flex: 1; // ✅ Esto hace que el contenido ocupe el espacio restante
     padding: 2rem;
   }
+  .logout-icon {
+  color: white;
+  font-size: 24px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  mat-icon {
+    font-size: 28px;
+  }
+}
 
 }
