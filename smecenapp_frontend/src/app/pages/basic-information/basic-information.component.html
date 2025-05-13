@@ -1,1 +1,66 @@
-<p>basic-information works!</p>
+<form #form="ngForm" (ngSubmit)="saveJourney()" novalidate>
+  <div class="progress-header">
+    <div class="step-label">1 Información Básica</div>
+    <mat-progress-bar color="primary" mode="determinate" [value]="20"></mat-progress-bar>
+  </div>
+
+  <div class="info-basica-container">
+    <mat-card>
+      <h1 class="titulo">1 Información Básica</h1>
+
+      <mat-form-field appearance="fill" class="campo">
+        <mat-label>Nombre de la aplicación</mat-label>
+        <input
+          matInput
+          placeholder="Ingresa un nombre"
+          [(ngModel)]="journey.name"
+          name="name"
+          required
+          #nameRef="ngModel"
+        />
+        <mat-error *ngIf="nameRef.invalid && nameRef.touched">
+          El nombre es obligatorio
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="campo">
+        <mat-label>Descripción</mat-label>
+        <textarea
+          matInput
+          rows="3"
+          placeholder="Agrega una descripción"
+          [(ngModel)]="journey.description"
+          name="description"
+          required
+          #descriptionRef="ngModel"
+        ></textarea>
+        <mat-error *ngIf="descriptionRef.invalid && descriptionRef.touched">
+          La descripción es obligatoria
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="campo">
+        <mat-label>Contexto adicional</mat-label>
+        <textarea
+          matInput
+          rows="3"
+          placeholder="Información adicional del proyecto"
+          [(ngModel)]="journey.context"
+          name="context"
+        ></textarea>
+      </mat-form-field>
+
+      <div class="acciones">
+        <button mat-button color="primary" type="button">Atrás</button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="form.invalid"
+        >
+          Siguiente
+        </button>
+      </div>
+    </mat-card>
+  </div>
+</form>
