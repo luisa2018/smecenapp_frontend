@@ -1,0 +1,12 @@
+.dashboard-container {
+  padding: 2rem;
+
+  .actions {
+    text-align: right; // Alinea a la izquierda
+    margin-top: 1rem;
+
+    button {
+      font-weight: bold;
+    }
+  }
+}
