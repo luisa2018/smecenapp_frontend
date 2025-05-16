@@ -9,6 +9,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { JourneyService } from '../../services/journey.service';
 import { Journey } from '../../model/journey';
 import { JourneyStatus } from '../../model/journey-status.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-basic-information',
@@ -32,18 +33,24 @@ export class BasicInformationComponent {
     context: '',
     status: JourneyStatus.DRAFT
   };
-  constructor(private journeyService: JourneyService) {}
+    constructor(private journeyService: JourneyService, private router: Router) {}
 
-  saveJourney() {
-    this.journeyService.create(this.journey).subscribe({
-      next: (res) => {
-        console.log('Journey created:', res);
-        // redirigir o mostrar mensaje
-      },
-      error: (err) => {
-        console.error('Error saving journey', err);
+   saveJourney() {
+  this.journeyService.create(this.journey).subscribe({
+    next: (res) => {
+      console.log('Journey created:', res);
+      if (res && res.idJourney) {
+        localStorage.setItem('journeyId', res.idJourney.toString());
+        this.router.navigate(['/define-architecture']);
+      } else {
+        console.error('idJourney no disponible en la respuesta');
       }
-    });
-  }
+    },
+    error: (err) => {
+      console.error('Error saving journey', err);
+    }
+  });
+}
+
 
 }

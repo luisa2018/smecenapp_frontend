@@ -1,0 +1,76 @@
+<div class="progress-header">
+  <div class="step-label">3 Definir Infraestructura</div>
+  <mat-progress-bar color="primary" mode="determinate" [value]="60"></mat-progress-bar>
+</div>
+
+<!-- Botón superior -->
+<div class="recomendacion-bar">
+  <button mat-stroked-button color="accent" (click)="generarRecomendaciones()">
+    Generar Recomendaciones
+  </button>
+</div>
+
+<!-- Contenedor principal -->
+<div class="infra-container">
+  <mat-card class="infra-section">
+    <h2>Tipo de entorno</h2>
+    <mat-checkbox [(ngModel)]="infra.entorno.dev">Desarrollo</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.entorno.test">Pruebas</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.entorno.prod">Producción</mat-checkbox>
+  </mat-card>
+
+  <mat-card class="infra-section">
+    <h2>Modelo de Pago</h2>
+    <mat-checkbox [(ngModel)]="infra.pago.ondemand">Pago por Uso</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.pago.reservadas">Instancias Reservadas</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.pago.spot">Instancias Spot</mat-checkbox>
+  </mat-card>
+
+  <mat-card class="infra-section">
+    <h2>Tipo de Aplicación</h2>
+    <mat-checkbox [(ngModel)]="infra.tipoAplicacion.basica">Aplicación Básica</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.tipoAplicacion.escalable">Aplicación Escalable</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.tipoAplicacion.altaDisponibilidad">Alta Disponibilidad</mat-checkbox>
+  </mat-card>
+
+  <mat-card class="infra-section">
+    <h2>Cómputo</h2>
+    <mat-checkbox [(ngModel)]="infra.computo.ec2">EC2</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.computo.fargate">Fargate</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.computo.eks">EKS</mat-checkbox>
+  </mat-card>
+
+  <mat-card class="infra-section">
+    <h2>Base de Datos</h2>
+    <mat-checkbox [(ngModel)]="infra.db.rds">Amazon RDS</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.db.dynamo">DynamoDB</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.db.elasticache">ElastiCache</mat-checkbox>
+  </mat-card>
+
+  <mat-card class="infra-section">
+    <h2>Almacenamiento y CDN</h2>
+    <mat-checkbox [(ngModel)]="infra.storage.s3">Amazon S3</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.storage.cloudfront">CloudFront</mat-checkbox>
+  </mat-card>
+
+  <mat-card class="infra-section">
+    <h2>Red y Seguridad</h2>
+    <mat-checkbox [(ngModel)]="infra.red.waf">AWS WAF</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.red.elb">Elastic Load Balancer</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.red.vpc">VPC</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.red.subnets">Subnets Públicas/Privadas</mat-checkbox>
+  </mat-card>
+
+  <mat-card class="infra-section">
+    <h2>Seguridad y Monitoreo</h2>
+    <mat-checkbox [(ngModel)]="infra.seguridad.guardduty">GuardDuty</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.seguridad.cloudwatch">CloudWatch</mat-checkbox>
+    <mat-checkbox [(ngModel)]="infra.seguridad.config">AWS Config</mat-checkbox>
+  </mat-card>
+</div>
+<div class="acciones">
+  <button mat-button color="primary">Atrás</button>
+  <button mat-raised-button color="primary" (click)="saveInfrastructure()">
+  Siguiente
+</button>
+</div>
