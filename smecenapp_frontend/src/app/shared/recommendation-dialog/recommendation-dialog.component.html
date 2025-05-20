@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Recomendaciones para tu infraestructura</h2>
+
+<mat-dialog-content>
+  <ul>
+    <li *ngFor="let rec of data">
+      {{ rec }}
+    </li>
+  </ul>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

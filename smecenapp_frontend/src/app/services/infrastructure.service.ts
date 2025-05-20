@@ -9,7 +9,7 @@ import { Infrastructure } from '../model/infrastructure';
 export class InfrastructureService {
   private baseUrl = 'http://localhost:8080/infrastructure';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Crear infraestructura
   create(data: Infrastructure): Observable<Infrastructure> {
@@ -35,4 +35,12 @@ export class InfrastructureService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+  getRecommendations(data: Infrastructure): Observable<string[]> {
+    return this.http.post<string[]>(`${this.baseUrl}/recommendations`, data);
+  }
+  getByJourneyId(journeyId: number): Observable<Infrastructure> {
+    return this.http.get<Infrastructure>(`${this.baseUrl}/journey/${journeyId}`);
+  }
+
+
 }

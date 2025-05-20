@@ -10,6 +10,12 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { InfrastructureService } from '../../services/infrastructure.service';
 import { Infrastructure } from '../../model/infrastructure';
 import { OnInit } from '@angular/core';
+import { JourneyContextService } from '../../services/journey-context.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { RecommendationDialogComponent } from '../../shared/recommendation-dialog/recommendation-dialog.component';
+
+
+
 
 
 @Component({
@@ -23,17 +29,20 @@ import { OnInit } from '@angular/core';
     MatCardModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatDialogModule,
     MatProgressBarModule
   ]
 })
 export class DefineArchitectureComponent implements OnInit {
   journeyId: number = 0;
+
   ngOnInit(): void {
-    const stored = localStorage.getItem('journeyId');
-    if (stored) {
-      this.journeyId = Number(stored);
+    const id = this.journeyContext.getJourneyId(); // ✅
+    if (id) {
+      this.journeyId = id;
     } else {
-      console.warn('No se encontró journeyId en localStorage');
+      console.warn('No se encontró journeyId en contexto');
+      this.router.navigate(['/basic-information']);
     }
   }
   infra = {
@@ -49,16 +58,14 @@ export class DefineArchitectureComponent implements OnInit {
 
   constructor(
     private infraService: InfrastructureService,
-    private router: Router) {}
+    private router: Router, private journeyContext: JourneyContextService,
+    private dialog: MatDialog
+  ) { }
 
   goBack() {
-    this.router.navigate(['/basic-information']);
+    this.router.navigate(['/cost-visibility']);
   }
 
-  goNext() {
-    console.log('Infraestructura seleccionada:', this.infra);
-    this.router.navigate(['/recommendations']); // reemplaza según tu ruta real
-  }
 
   private toCommaList(obj: any): string {
     return Object.entries(obj)
@@ -67,7 +74,32 @@ export class DefineArchitectureComponent implements OnInit {
       .join(',');
   }
 
-   saveInfrastructure() {
+ saveInfrastructure() {
+  const payload: Infrastructure = {
+    journeyId: this.journeyId,
+    environmentTypes: this.toCommaList(this.infra.entorno),
+    paymentModels: this.toCommaList(this.infra.pago),
+    applicationTypes: this.toCommaList(this.infra.tipoAplicacion),
+    computeServices: this.toCommaList(this.infra.computo),
+    databaseServices: this.toCommaList(this.infra.db),
+    storageServices: this.toCommaList(this.infra.storage),
+    networkSecurity: this.toCommaList(this.infra.red),
+    monitoringServices: this.toCommaList(this.infra.seguridad)
+  };
+
+  this.infraService.create(payload).subscribe({
+    next: (res) => {
+      console.log('Infraestructura guardada:', res);
+      localStorage.setItem('infrastructureId', res.id!.toString()); // 👉 Guarda el ID
+      this.router.navigate(['/cost-visibility']); // 👉 Redirige
+    },
+    error: (err) => {
+      console.error('Error al guardar infraestructura:', err);
+      alert('Hubo un error al guardar');
+    }
+  });
+}
+  generarRecomendaciones() {
     const payload: Infrastructure = {
       journeyId: this.journeyId,
       environmentTypes: this.toCommaList(this.infra.entorno),
@@ -77,22 +109,22 @@ export class DefineArchitectureComponent implements OnInit {
       databaseServices: this.toCommaList(this.infra.db),
       storageServices: this.toCommaList(this.infra.storage),
       networkSecurity: this.toCommaList(this.infra.red),
-      monitoringServices: this.toCommaList(this.infra.seguridad)
+      monitoringServices: this.toCommaList(this.infra.seguridad),
     };
 
-    this.infraService.create(payload).subscribe({
+    this.infraService.getRecommendations(payload).subscribe({
       next: (res) => {
-        console.log('Infraestructura guardada:', res);
-        this.router.navigate(['/recomendaciones']); // o siguiente pantalla
+        const recomendaciones = res ?? []; // asegura que no sea undefined/null
+        this.dialog.open(RecommendationDialogComponent, {
+          data: recomendaciones,
+          width: '500px'
+        });
       },
       error: (err) => {
-        console.error('Error al guardar infraestructura:', err);
-        alert('Hubo un error al guardar');
+        console.error('Error obteniendo recomendaciones:', err);
+        alert('No se pudieron generar las recomendaciones.');
       }
     });
   }
-  generarRecomendaciones() {
-    console.log('Generando recomendaciones basadas en:', this.infra);
-    // lógica para mostrar recomendaciones
-  }
+
 }

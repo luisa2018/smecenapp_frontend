@@ -1,0 +1,29 @@
+<div class="progress-header">
+  <div class="step-label">4 Visibilidad de Costos</div>
+  <mat-progress-bar color="primary" mode="determinate" [value]="80"></mat-progress-bar>
+</div>
+
+<div class="cost-summary-card">
+  <mat-card>
+    <mat-card-title>Resumen de Costos Estimados</mat-card-title>
+    <mat-card-content *ngIf="infrastructure">
+      <p><strong>Entornos:</strong> {{ infrastructure.environmentTypes }}</p>
+      <p><strong>Modelo de Pago:</strong> {{ infrastructure.paymentModels }}</p>
+      <p><strong>Tipo de Aplicación:</strong> {{ infrastructure.applicationTypes }}</p>
+      <p><strong>Cómputo:</strong> {{ infrastructure.computeServices }}</p>
+      <p><strong>Base de Datos:</strong> {{ infrastructure.databaseServices }}</p>
+      <p><strong>Almacenamiento y CDN:</strong> {{ infrastructure.storageServices }}</p>
+      <p><strong>Red y Seguridad:</strong> {{ infrastructure.networkSecurity }}</p>
+      <p><strong>Monitoreo:</strong> {{ infrastructure.monitoringServices }}</p>
+      <p class="total"><strong>Total estimado:</strong> ${{ costoTotal }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button color="accent" (click)="verDesglose()">Ver desglose de costos</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div class="acciones">
+  <button mat-button color="primary" (click)="goBack()">Atrás</button>
+  <button mat-raised-button color="primary" (click)="goNext()">Siguiente</button>
+</div>

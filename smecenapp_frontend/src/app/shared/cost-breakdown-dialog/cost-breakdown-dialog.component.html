@@ -1,0 +1,13 @@
+<div @fadeIn>
+  <h2 mat-dialog-title>Desglose de Costos</h2>
+  <mat-dialog-content>
+    <ul>
+      <li *ngFor="let item of breakdown">
+        <strong>{{ item.nombre }}</strong>: ${{ item.costo }}
+      </li>
+    </ul>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cerrar</button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,41 @@
+<div class="progress-header">
+  <div class="step-label">2 Objetivos Financieros y de Negocio</div>
+  <mat-progress-bar color="primary" mode="determinate" [value]="40"></mat-progress-bar>
+</div>
+
+<mat-card>
+  <h2 class="titulo">Define tus objetivos financieros</h2>
+
+  <mat-form-field appearance="fill" class="campo">
+    <mat-label>Presupuesto estimado (USD)</mat-label>
+    <input matInput type="number" [(ngModel)]="goal.estimatedBudget" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="campo">
+    <mat-label>Límite mensual (USD)</mat-label>
+    <input matInput type="number" [(ngModel)]="goal.monthlyLimit" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="campo">
+    <mat-label>Prioridad de optimización</mat-label>
+    <mat-select [(ngModel)]="goal.optimizationPriority" required>
+      <mat-option value="costo">Reducir costos</mat-option>
+      <mat-option value="rendimiento">Mejorar rendimiento</mat-option>
+      <mat-option value="balanceado">Balancear ambos</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="campo">
+    <mat-label>Periodo de evaluación</mat-label>
+    <mat-select [(ngModel)]="goal.evaluationPeriod" required>
+      <mat-option value="mensual">Mensual</mat-option>
+      <mat-option value="trimestral">Trimestral</mat-option>
+      <mat-option value="anual">Anual</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="acciones">
+    <button mat-button color="primary" (click)="goBack()">Atrás</button>
+    <button mat-raised-button color="primary" (click)="saveGoal()">Siguiente</button>
+  </div>
+</mat-card>
